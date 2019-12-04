@@ -1,10 +1,20 @@
 language: node_js
 node_js:
-  - 'stable'
+- stable
 install: npm install
 services:
-  - postgresql
+- postgresql
 before_script:
-  - npm run db:create:test
+- npm run db:create:test
 script: npm test
 after_success: npm run coverage
+deploy:
+  provider: heroku
+  api_key:
+    secure: GobU1O9yv0bf8SyRme6gBPNpL6Rb1QiFzO4z+kuqz1UqPyXF4xS+kb3VXoeaX9y9Dg80wJfoBgLSizvIYG7wtG+SoI9ZGRl0CsJQ10LIey7JvVLZkJDOqL1dDAiKXuXxrbBZwfq4yX6/9hYOL06yadwl/COsC+I6SUhHK8V1hGZd4QTx8nd+t2WBgqcHvJUn164u8k+GqskDY4rb99AyPToBmgRtW8+RvYtWRzt05Oi4rAYv6dHvaFSX4F4fyuAQccTwzeyQS+y2PIMHU8ai5UB+4TX1iczBjV12mKAxHtr2WIP7ONsba9yFiA5L34h5OfDG4vlrKfe4oFQGIsd6C3xt7+/6Y0lOJ0sDvBhsfvIw0Y0HGl/BY3IpHbP0sKAxlHH6AJ4GIRpBLCMkzAx7+TKNS1lhq908sm01VThI3bg3yXh+lWUxMgavLkOfMfQTTdMkh2WrxpTSB9InUu3nTjBRCnuJH5EWMgMuT+a+DjGi7XE6SyZhXnxlTkTcnSZCdyvy1WfwhnOIl0EklAXHSWttdVYZKol7FjtRiu4STzDObrO6Plg4qB8ZFoe6lCzOYvEnOp9CFPf7QzTWQpQ7/mnDkhSdlOreuieQbkhqErD13ckdxfsGGMGEj+ZSghgC84ZcZNWiVwg8Mn+5ZP7L/8zBX/QBn/rb32zlLIT32e4=
+  app: my-heroku-ci
+  on:
+    repo: meldon25/express-api-ci
+  run:
+    - "npx sequelize-cli db:migrate"
+    - "npx sequelize-cli db:seed:all"
