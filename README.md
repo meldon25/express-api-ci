@@ -1,0 +1,1 @@
+[![Coverage Status](https://coveralls.io/repos/github/meldon25/express-api-ci/badge.svg?branch=master)](https://coveralls.io/github/meldon25/express-api-ci?branch=master)
